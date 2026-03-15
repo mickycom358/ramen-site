@@ -867,7 +867,12 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onload="initSupabase()"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+window.addEventListener('load', function() {
+  const { createClient } = window.supabase;
+  sb = createClient(
+    'https://yyinvrknsdbncicfljgk.supabase.co',
 <script>
 // ============================================================
 // Supabase接続設定

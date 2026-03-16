@@ -37,17 +37,21 @@
   .search-row { display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:16px; align-items:end; }
   @media(max-width:768px){ .search-row{ grid-template-columns:1fr 1fr; } .search-row .btn-search{ grid-column:1/-1; } }
   .field label { display:block; font-size:11px; font-weight:500; letter-spacing:2px; color:rgba(26,16,8,0.5); margin-bottom:6px; text-transform:uppercase; }
-  .field input, .field select { width:100%; padding:12px 16px; border:1.5px solid var(--border); background:var(--paper); font-family:'Noto Sans JP',sans-serif; font-size:14px; color:var(--ink); outline:none; transition:border-color 0.2s,box-shadow 0.2s; -webkit-appearance:none; appearance:none; cursor:pointer; }
+  .field input, .field select, .field textarea { width:100%; padding:12px 16px; border:1.5px solid var(--border); background:var(--paper); font-family:'Noto Sans JP',sans-serif; font-size:14px; color:var(--ink); outline:none; transition:border-color 0.2s,box-shadow 0.2s; -webkit-appearance:none; appearance:none; cursor:pointer; }
+  .field textarea { resize:vertical; min-height:80px; cursor:text; }
   .field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%231a1008'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; padding-right:36px; }
-  .field input:focus, .field select:focus { border-color:var(--red); box-shadow:0 0 0 3px rgba(192,57,43,0.12); }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color:var(--red); box-shadow:0 0 0 3px rgba(192,57,43,0.12); }
   .btn-search { background:var(--red); color:white; border:2px solid var(--red-dark); padding:12px 32px; font-family:'Shippori Mincho B1',serif; font-size:16px; font-weight:800; letter-spacing:3px; cursor:pointer; transition:transform 0.15s,box-shadow 0.15s; box-shadow:3px 3px 0 var(--red-dark); white-space:nowrap; }
   .btn-search:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--red-dark); }
   .btn-search:active { transform:translate(0,0); box-shadow:1px 1px 0 var(--red-dark); }
-  .quick-filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:32px; }
+  .action-bar { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
+  .quick-filters { display:flex; flex-wrap:wrap; gap:8px; }
   .qf-label { font-size:11px; letter-spacing:2px; font-weight:500; color:rgba(26,16,8,0.4); align-self:center; margin-right:4px; }
   .qf-btn { padding:6px 16px; border:1.5px solid var(--border); background:white; font-family:'Noto Sans JP',sans-serif; font-size:13px; cursor:pointer; transition:all 0.15s; color:var(--ink); }
   .qf-btn:hover { background:var(--ink); color:var(--paper); border-color:var(--ink); }
   .qf-btn.active { background:var(--red); border-color:var(--red-dark); color:white; }
+  .btn-add-shop { background:var(--ink); color:var(--paper); border:2px solid var(--ink); padding:8px 20px; font-family:'Shippori Mincho B1',serif; font-size:14px; font-weight:800; letter-spacing:2px; cursor:pointer; transition:all 0.15s; white-space:nowrap; display:flex; align-items:center; gap:8px; }
+  .btn-add-shop:hover { background:var(--red); border-color:var(--red-dark); }
   .results-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:24px; border-bottom:1.5px solid var(--border); padding-bottom:12px; }
   .results-count { font-family:'Shippori Mincho B1',serif; font-size:20px; font-weight:800; }
   .results-count span { color:var(--red); font-size:28px; }
@@ -55,17 +59,23 @@
   .sort-options button { background:none; border:none; cursor:pointer; font-family:'Noto Sans JP',sans-serif; font-size:12px; color:rgba(26,16,8,0.5); transition:color 0.15s; padding:0; }
   .sort-options button.active, .sort-options button:hover { color:var(--red); font-weight:500; }
   .shop-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:24px; }
-  .shop-card { background:white; border:1.5px solid var(--border); cursor:pointer; transition:transform 0.2s,box-shadow 0.2s; overflow:hidden; }
+  .shop-card { background:white; border:1.5px solid var(--border); cursor:pointer; transition:transform 0.2s,box-shadow 0.2s; overflow:hidden; position:relative; }
   .shop-card:hover { transform:translate(-3px,-3px); box-shadow:6px 6px 0 var(--ink); border-color:var(--ink); }
+  .card-actions { position:absolute; top:12px; right:12px; display:flex; gap:6px; z-index:2; }
+  .card-action-btn { width:32px; height:32px; border:1.5px solid var(--border); background:white; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; transition:all 0.15s; border-radius:0; }
+  .card-action-btn:hover { border-color:var(--ink); background:var(--paper); }
+  .card-action-btn.active-fav { background:#fff0ee; border-color:var(--red); }
+  .card-action-btn.active-visited { background:#eef8f0; border-color:#27ae60; }
   .card-header { padding:20px 20px 16px; display:flex; gap:16px; align-items:flex-start; }
   .card-emoji { font-size:48px; flex-shrink:0; width:64px; height:64px; display:flex; align-items:center; justify-content:center; background:var(--paper); border:1px solid var(--border); }
-  .card-info { flex:1; min-width:0; }
+  .card-info { flex:1; min-width:0; padding-right:60px; }
   .card-name { font-family:'Shippori Mincho B1',serif; font-size:18px; font-weight:800; line-height:1.3; margin-bottom:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   .card-pref { font-size:11px; letter-spacing:2px; color:rgba(26,16,8,0.45); font-weight:500; margin-bottom:8px; }
   .card-tags { display:flex; flex-wrap:wrap; gap:4px; }
   .tag { padding:2px 10px; font-size:11px; font-weight:500; border:1px solid; }
   .tag.type { background:var(--ink); color:var(--paper); border-color:var(--ink); }
   .tag.feature { border-color:var(--gold); color:var(--gold); }
+  .tag.user-added { border-color:#4a90d9; color:#4a90d9; font-size:10px; }
   .card-rating { text-align:center; flex-shrink:0; }
   .rating-score { font-family:'Shippori Mincho B1',serif; font-size:28px; font-weight:800; color:var(--red); line-height:1; }
   .rating-stars { font-size:10px; color:var(--gold); letter-spacing:1px; margin:2px 0; }
@@ -82,6 +92,8 @@
   .badge-open { padding:3px 10px; font-size:10px; font-weight:500; letter-spacing:1px; }
   .badge-open.open { background:#27ae60; color:white; }
   .badge-open.closed { background:rgba(26,16,8,0.12); color:rgba(26,16,8,0.5); }
+
+  /* Modal */
   .modal-overlay { display:none; position:fixed; inset:0; background:rgba(26,16,8,0.75); z-index:500; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(4px); }
   .modal-overlay.open { display:flex; animation:fadeIn 0.2s ease; }
   @keyframes fadeIn{ from{opacity:0} to{opacity:1} }
@@ -95,23 +107,51 @@
   .modal-rating-big { font-family:'Shippori Mincho B1',serif; font-size:40px; font-weight:800; color:var(--red); line-height:1; }
   .modal-body { padding:32px; }
   .section-head { font-family:'Shippori Mincho B1',serif; font-size:16px; font-weight:800; letter-spacing:2px; border-left:4px solid var(--red); padding-left:12px; margin-bottom:16px; }
-  .full-menu { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:32px; }
-  @media(max-width:480px){ .full-menu{grid-template-columns:1fr;} }
-  .full-menu-item { padding:12px 16px; background:white; border:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; transition:border-color 0.15s; }
-  .full-menu-item:hover { border-color:var(--red); }
-  .full-menu-item .item-name { font-size:14px; font-weight:500; }
-  .full-menu-item .item-desc { font-size:11px; color:rgba(26,16,8,0.5); margin-top:2px; }
-  .full-menu-item .item-price { font-family:'Shippori Mincho B1',serif; font-weight:800; color:var(--miso); font-size:16px; flex-shrink:0; margin-left:12px; }
-  .reviews { display:flex; flex-direction:column; gap:12px; margin-bottom:32px; }
-  .review { background:white; border:1px solid var(--border); padding:16px; }
-  .review-header { display:flex; justify-content:space-between; margin-bottom:8px; }
-  .reviewer-name { font-weight:500; font-size:13px; }
-  .review-score { font-family:'Shippori Mincho B1',serif; font-weight:800; color:var(--red); }
-  .review-text { font-size:13px; line-height:1.7; color:rgba(26,16,8,0.75); }
-  .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:28px; }
   .info-item { padding:12px 16px; background:white; border:1px solid var(--border); }
   .info-item-label { font-size:10px; letter-spacing:2px; color:rgba(26,16,8,0.4); margin-bottom:4px; text-transform:uppercase; }
   .info-item-value { font-size:14px; font-weight:500; }
+  .modal-action-bar { display:flex; gap:12px; margin-bottom:28px; }
+  .modal-action-btn { flex:1; padding:12px; border:1.5px solid var(--border); background:white; font-family:'Noto Sans JP',sans-serif; font-size:13px; cursor:pointer; transition:all 0.15s; display:flex; align-items:center; justify-content:center; gap:6px; font-weight:500; }
+  .modal-action-btn:hover { border-color:var(--ink); background:var(--paper); }
+  .modal-action-btn.active-fav { background:#fff0ee; border-color:var(--red); color:var(--red); }
+  .modal-action-btn.active-visited { background:#eef8f0; border-color:#27ae60; color:#27ae60; }
+
+  /* Review section */
+  .reviews { display:flex; flex-direction:column; gap:12px; margin-bottom:28px; }
+  .review { background:white; border:1px solid var(--border); padding:16px; }
+  .review-header { display:flex; justify-content:space-between; margin-bottom:6px; align-items:center; }
+  .reviewer-name { font-weight:500; font-size:13px; }
+  .review-score { font-family:'Shippori Mincho B1',serif; font-weight:800; color:var(--red); font-size:18px; }
+  .review-stars { color:var(--gold); font-size:12px; }
+  .review-text { font-size:13px; line-height:1.7; color:rgba(26,16,8,0.75); }
+  .review-date { font-size:11px; color:rgba(26,16,8,0.35); margin-top:4px; }
+  .no-reviews { text-align:center; padding:24px; color:rgba(26,16,8,0.35); font-size:13px; background:white; border:1px solid var(--border); }
+
+  /* Review form */
+  .review-form { background:white; border:1.5px solid var(--border); padding:20px; margin-bottom:28px; }
+  .review-form-title { font-family:'Shippori Mincho B1',serif; font-size:14px; font-weight:800; margin-bottom:16px; }
+  .star-input { display:flex; gap:4px; margin-bottom:12px; flex-direction:row-reverse; justify-content:flex-end; }
+  .star-input input { display:none; }
+  .star-input label { font-size:28px; cursor:pointer; color:rgba(26,16,8,0.2); transition:color 0.1s; }
+  .star-input label:hover,
+  .star-input label:hover ~ label,
+  .star-input input:checked ~ label { color:var(--gold); }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
+  .btn-submit { background:var(--ink); color:var(--paper); border:2px solid var(--ink); padding:10px 24px; font-family:'Shippori Mincho B1',serif; font-size:14px; font-weight:800; letter-spacing:2px; cursor:pointer; transition:all 0.15s; width:100%; }
+  .btn-submit:hover { background:var(--red); border-color:var(--red-dark); }
+  .btn-submit:disabled { opacity:0.5; cursor:not-allowed; }
+
+  /* Add shop modal */
+  .add-shop-modal { max-width:600px; }
+  .add-shop-form { padding:32px; }
+  .add-shop-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  @media(max-width:480px){ .add-shop-grid,.form-row,.info-grid{grid-template-columns:1fr;} }
+
+  /* Toast */
+  .toast { position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--ink); color:var(--paper); padding:12px 24px; font-size:14px; font-weight:500; z-index:9999; opacity:0; transition:all 0.3s ease; pointer-events:none; white-space:nowrap; border-left:4px solid var(--red); }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
   .no-results { text-align:center; padding:80px 20px; color:rgba(26,16,8,0.4); }
   .no-results-icon { font-size:64px; margin-bottom:16px; }
   .no-results h3 { font-family:'Shippori Mincho B1',serif; font-size:20px; font-weight:800; margin-bottom:8px; color:var(--ink); }
@@ -140,10 +180,10 @@
 </header>
 
 <div class="stats-bar">
-  <div class="stat"><strong>2,847</strong> 店舗掲載中</div>
+  <div class="stat"><strong id="statShops">2,847</strong> 店舗掲載中</div>
   <div class="stat"><strong>47</strong> 都道府県網羅</div>
   <div class="stat"><strong>18</strong> ラーメン種別</div>
-  <div class="stat"><strong>12,490</strong> 件のクチコミ</div>
+  <div class="stat"><strong id="statReviews">12,490</strong> 件のクチコミ</div>
 </div>
 
 <main class="main">
@@ -171,14 +211,19 @@
     </div>
   </div>
 
-  <div class="quick-filters">
-    <span class="qf-label">人気の絞り込み：</span>
-    <button class="qf-btn" onclick="quickFilter('評価が高い')">⭐ 評価が高い</button>
-    <button class="qf-btn" onclick="quickFilter('深夜営業')">🌙 深夜営業</button>
-    <button class="qf-btn" onclick="quickFilter('行列必至')">🔥 行列必至</button>
-    <button class="qf-btn" onclick="quickFilter('ベジタリアン')">🌿 ベジタリアン対応</button>
-    <button class="qf-btn" onclick="quickFilter('駐車場あり')">🚗 駐車場あり</button>
-    <button class="qf-btn" onclick="quickFilter('一人でも入りやすい')">👤 一人OK</button>
+  <div class="action-bar">
+    <div class="quick-filters">
+      <span class="qf-label">絞り込み：</span>
+      <button class="qf-btn" onclick="quickFilter('評価が高い')">⭐ 評価が高い</button>
+      <button class="qf-btn" onclick="quickFilter('深夜営業')">🌙 深夜営業</button>
+      <button class="qf-btn" onclick="quickFilter('行列必至')">🔥 行列必至</button>
+      <button class="qf-btn" onclick="quickFilter('ベジタリアン')">🌿 ベジタリアン対応</button>
+      <button class="qf-btn" onclick="quickFilter('駐車場あり')">🚗 駐車場あり</button>
+      <button class="qf-btn" onclick="quickFilter('一人でも入りやすい')">👤 一人OK</button>
+      <button class="qf-btn" id="qfFav" onclick="toggleFavFilter()">❤️ お気に入り</button>
+      <button class="qf-btn" id="qfVisited" onclick="toggleVisitedFilter()">✅ 訪問済み</button>
+    </div>
+    <button class="btn-add-shop" onclick="openAddShopModal()">＋ 店舗を追加</button>
   </div>
 
   <div class="results-header">
@@ -195,6 +240,7 @@
   <div class="pagination" id="pagination"></div>
 </main>
 
+<!-- Shop detail modal -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal" id="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -202,13 +248,79 @@
   </div>
 </div>
 
+<!-- Add shop modal -->
+<div class="modal-overlay" id="addShopOverlay" onclick="closeAddShopModal(event)">
+  <div class="modal add-shop-modal" id="addShopModal">
+    <button class="modal-close" onclick="closeAddShopModal()">✕</button>
+    <div class="modal-hero">
+      <div class="modal-name">🏪 店舗を追加する</div>
+      <div style="font-size:13px;opacity:0.6;margin-top:8px">あなたのおすすめのお店を登録してください</div>
+    </div>
+    <div class="add-shop-form">
+      <div class="add-shop-grid">
+        <div class="field" style="grid-column:1/-1">
+          <label>店名 *</label>
+          <input type="text" id="addName" placeholder="例：麺屋 一風堂">
+        </div>
+        <div class="field">
+          <label>都道府県 *</label>
+          <select id="addPref">
+            <option value="">選択してください</option>
+            <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option><option>秋田県</option><option>山形県</option><option>福島県</option><option>茨城県</option><option>栃木県</option><option>群馬県</option><option>埼玉県</option><option>千葉県</option><option>東京都</option><option>神奈川県</option><option>新潟県</option><option>富山県</option><option>石川県</option><option>福井県</option><option>山梨県</option><option>長野県</option><option>岐阜県</option><option>静岡県</option><option>愛知県</option><option>三重県</option><option>滋賀県</option><option>京都府</option><option>大阪府</option><option>兵庫県</option><option>奈良県</option><option>和歌山県</option><option>鳥取県</option><option>島根県</option><option>岡山県</option><option>広島県</option><option>山口県</option><option>徳島県</option><option>香川県</option><option>愛媛県</option><option>高知県</option><option>福岡県</option><option>佐賀県</option><option>長崎県</option><option>熊本県</option><option>大分県</option><option>宮崎県</option><option>鹿児島県</option><option>沖縄県</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>エリア・最寄り駅</label>
+          <input type="text" id="addArea" placeholder="例：渋谷、新宿">
+        </div>
+        <div class="field">
+          <label>ラーメンの種類 *</label>
+          <select id="addType">
+            <option value="">選択してください</option>
+            <option>醤油ラーメン</option><option>塩ラーメン</option><option>味噌ラーメン</option><option>豚骨ラーメン</option><option>豚骨醤油</option><option>つけ麺</option><option>二郎系</option><option>家系</option><option>担担麺</option><option>冷やし中華</option><option>油そば</option><option>煮干し</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>営業時間</label>
+          <input type="text" id="addHours" placeholder="例：11:00〜22:00">
+        </div>
+        <div class="field">
+          <label>住所</label>
+          <input type="text" id="addAddress" placeholder="例：東京都渋谷区…">
+        </div>
+        <div class="field">
+          <label>定休日</label>
+          <input type="text" id="addClosed" placeholder="例：火曜日">
+        </div>
+        <div class="field" style="grid-column:1/-1">
+          <label>お店の説明・特徴</label>
+          <textarea id="addDesc" placeholder="スープのこだわり、おすすめメニューなど…"></textarea>
+        </div>
+      </div>
+      <button class="btn-submit" id="addShopBtn" onclick="submitAddShop()">この店舗を登録する</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 let sb = null;
 let filteredShops = [];
+let allShops = [];
 let currentSort = 'rating';
 let currentPage = 1;
 const PER_PAGE = 9;
+
+// Local storage keys
+const FAV_KEY = 'menudo_favorites';
+const VISITED_KEY = 'menudo_visited';
+
+let favorites = JSON.parse(localStorage.getItem(FAV_KEY) || '[]');
+let visited = JSON.parse(localStorage.getItem(VISITED_KEY) || '[]');
+let showFavOnly = false;
+let showVisitedOnly = false;
 
 window.addEventListener('load', function() {
   try {
@@ -234,22 +346,57 @@ async function loadShops(filters = {}) {
     if (filters.tag)     query = query.contains('tags', [filters.tag]);
     const { data, error } = await query;
     if (error) throw error;
-    filteredShops = data || [];
+    allShops = data || [];
+    filteredShops = applyLocalFilters(allShops);
   } catch(e) {
     console.error('データ取得エラー:', e);
     filteredShops = [];
+    allShops = [];
   }
   sortShops();
   currentPage = 1;
   renderGrid();
 }
 
+function applyLocalFilters(shops) {
+  let result = [...shops];
+  if (showFavOnly)     result = result.filter(s => favorites.includes(s.id));
+  if (showVisitedOnly) result = result.filter(s => visited.includes(s.id));
+  return result;
+}
+
 async function applyFilters() {
+  showFavOnly = false;
+  showVisitedOnly = false;
+  document.getElementById('qfFav').classList.remove('active');
+  document.getElementById('qfVisited').classList.remove('active');
   await loadShops({
     keyword: document.getElementById('searchText').value,
     pref: document.getElementById('prefFilter').value,
     type: document.getElementById('typeFilter').value,
   });
+}
+
+function toggleFavFilter() {
+  showFavOnly = !showFavOnly;
+  showVisitedOnly = false;
+  document.getElementById('qfFav').classList.toggle('active', showFavOnly);
+  document.getElementById('qfVisited').classList.remove('active');
+  filteredShops = applyLocalFilters(allShops);
+  sortShops();
+  currentPage = 1;
+  renderGrid();
+}
+
+function toggleVisitedFilter() {
+  showVisitedOnly = !showVisitedOnly;
+  showFavOnly = false;
+  document.getElementById('qfVisited').classList.toggle('active', showVisitedOnly);
+  document.getElementById('qfFav').classList.remove('active');
+  filteredShops = applyLocalFilters(allShops);
+  sortShops();
+  currentPage = 1;
+  renderGrid();
 }
 
 function renderStars(score) {
@@ -259,16 +406,73 @@ function renderStars(score) {
   return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
 }
 
+function toggleFavorite(e, id) {
+  e.stopPropagation();
+  const idx = favorites.indexOf(id);
+  if (idx === -1) {
+    favorites.push(id);
+    showToast('❤️ お気に入りに追加しました');
+  } else {
+    favorites.splice(idx, 1);
+    showToast('お気に入りから削除しました');
+  }
+  localStorage.setItem(FAV_KEY, JSON.stringify(favorites));
+  renderGrid();
+  // Update modal if open
+  const openShopId = document.getElementById('modal').dataset.shopId;
+  if (openShopId && parseInt(openShopId) === id) updateModalActions(id);
+}
+
+function toggleVisited(e, id) {
+  e.stopPropagation();
+  const idx = visited.indexOf(id);
+  if (idx === -1) {
+    visited.push(id);
+    showToast('✅ 訪問済みにしました');
+  } else {
+    visited.splice(idx, 1);
+    showToast('訪問済みを解除しました');
+  }
+  localStorage.setItem(VISITED_KEY, JSON.stringify(visited));
+  renderGrid();
+  const openShopId = document.getElementById('modal').dataset.shopId;
+  if (openShopId && parseInt(openShopId) === id) updateModalActions(id);
+}
+
+function updateModalActions(id) {
+  const favBtn = document.getElementById('modalFavBtn');
+  const visitedBtn = document.getElementById('modalVisitedBtn');
+  if (favBtn) {
+    const isFav = favorites.includes(id);
+    favBtn.className = 'modal-action-btn' + (isFav ? ' active-fav' : '');
+    favBtn.innerHTML = (isFav ? '❤️' : '🤍') + ' お気に入り';
+  }
+  if (visitedBtn) {
+    const isVisited = visited.includes(id);
+    visitedBtn.className = 'modal-action-btn' + (isVisited ? ' active-visited' : '');
+    visitedBtn.innerHTML = (isVisited ? '✅' : '⬜') + ' 訪問済み';
+  }
+}
+
 function renderCard(shop) {
   const tags = shop.tags || [];
+  const isFav = favorites.includes(shop.id);
+  const isVisited = visited.includes(shop.id);
+  const isUserAdded = shop.user_added;
   return '<div class="shop-card" onclick="openModal(' + shop.id + ')">'
+    + '<div class="card-actions">'
+    + '<button class="card-action-btn ' + (isFav ? 'active-fav' : '') + '" title="お気に入り" onclick="toggleFavorite(event,' + shop.id + ')">' + (isFav ? '❤️' : '🤍') + '</button>'
+    + '<button class="card-action-btn ' + (isVisited ? 'active-visited' : '') + '" title="訪問済み" onclick="toggleVisited(event,' + shop.id + ')">' + (isVisited ? '✅' : '⬜') + '</button>'
+    + '</div>'
     + '<div class="card-header">'
     + '<div class="card-emoji">' + (shop.emoji || '🍜') + '</div>'
     + '<div class="card-info">'
     + '<div class="card-name">' + shop.name + '</div>'
-    + '<div class="card-pref">📍 ' + shop.pref + '・' + shop.area + '</div>'
+    + '<div class="card-pref">📍 ' + shop.pref + '・' + (shop.area || '') + '</div>'
     + '<div class="card-tags"><span class="tag type">' + shop.type + '</span>'
-    + tags.slice(0,2).map(t => '<span class="tag feature">' + t + '</span>').join('') + '</div>'
+    + tags.slice(0,2).map(t => '<span class="tag feature">' + t + '</span>').join('')
+    + (isUserAdded ? '<span class="tag user-added">ユーザー投稿</span>' : '')
+    + '</div>'
     + '</div>'
     + '<div class="card-rating">'
     + '<div class="rating-score">' + shop.rating + '</div>'
@@ -314,7 +518,7 @@ function gotoPage(n) {
 
 let activeQF = null;
 function quickFilter(tag) {
-  const btns = document.querySelectorAll('.qf-btn');
+  const btns = document.querySelectorAll('.qf-btn:not(#qfFav):not(#qfVisited)');
   if (activeQF === tag) {
     activeQF = null;
     btns.forEach(b => b.classList.remove('active'));
@@ -340,10 +544,37 @@ function setSort(type, btn) {
   renderGrid();
 }
 
-function openModal(id) {
-  const shop = filteredShops.find(s => s.id === id);
+// ===== SHOP DETAIL MODAL =====
+async function openModal(id) {
+  const shop = filteredShops.find(s => s.id === id) || allShops.find(s => s.id === id);
   if (!shop) return;
+  document.getElementById('modal').dataset.shopId = id;
   const tags = shop.tags || [];
+  const isFav = favorites.includes(id);
+  const isVisited = visited.includes(id);
+
+  // Load reviews from Supabase
+  let reviews = [];
+  if (sb) {
+    try {
+      const { data } = await sb.from('reviews').select('*').eq('shop_id', id).order('created_at', {ascending: false});
+      reviews = data || [];
+    } catch(e) {}
+  }
+
+  const reviewsHtml = reviews.length === 0
+    ? '<div class="no-reviews">まだレビューがありません。最初の一件を投稿してみましょう！</div>'
+    : reviews.map(r => '<div class="review">'
+        + '<div class="review-header">'
+        + '<span class="reviewer-name">👤 ' + (r.author || '匿名') + '</span>'
+        + '<div style="display:flex;align-items:center;gap:8px">'
+        + '<span class="review-stars">' + '★'.repeat(r.score) + '☆'.repeat(5 - r.score) + '</span>'
+        + '<span class="review-score">' + r.score + '.0</span>'
+        + '</div></div>'
+        + '<div class="review-text">' + r.comment + '</div>'
+        + '<div class="review-date">' + new Date(r.created_at).toLocaleDateString('ja-JP') + '</div>'
+        + '</div>').join('');
+
   document.getElementById('modalContent').innerHTML =
     '<div class="modal-hero">'
     + '<div class="modal-name">' + (shop.emoji || '🍜') + ' ' + shop.name + '</div>'
@@ -354,24 +585,157 @@ function openModal(id) {
     + '<div style="margin-left:auto"><span class="badge-open ' + (shop.open ? 'open' : 'closed') + '" style="padding:6px 14px;font-size:12px">' + (shop.open ? '🟢 営業中' : '🔴 準備中') + '</span></div>'
     + '</div></div>'
     + '<div class="modal-body">'
+    + '<div class="modal-action-bar">'
+    + '<button id="modalFavBtn" class="modal-action-btn' + (isFav ? ' active-fav' : '') + '" onclick="toggleFavorite(event,' + id + ')">' + (isFav ? '❤️' : '🤍') + ' お気に入り</button>'
+    + '<button id="modalVisitedBtn" class="modal-action-btn' + (isVisited ? ' active-visited' : '') + '" onclick="toggleVisited(event,' + id + ')">' + (isVisited ? '✅' : '⬜') + ' 訪問済み</button>'
+    + '</div>'
     + '<div class="card-tags" style="margin-bottom:24px"><span class="tag type">' + shop.type + '</span>'
     + tags.map(t => '<span class="tag feature">' + t + '</span>').join('') + '</div>'
-    + '<p style="font-size:14px;line-height:1.8;color:rgba(26,16,8,0.75);margin-bottom:28px">' + (shop.description || '') + '</p>'
-    + '<div class="section-head" style="margin-bottom:16px">店舗情報</div>'
+    + (shop.description ? '<p style="font-size:14px;line-height:1.8;color:rgba(26,16,8,0.75);margin-bottom:28px">' + shop.description + '</p>' : '')
+    + '<div class="section-head">店舗情報</div>'
     + '<div class="info-grid">'
     + '<div class="info-item"><div class="info-item-label">住所</div><div class="info-item-value">' + (shop.address || '―') + '</div></div>'
     + '<div class="info-item"><div class="info-item-label">営業時間</div><div class="info-item-value">' + (shop.hours || '―') + '</div></div>'
     + '<div class="info-item"><div class="info-item-label">定休日</div><div class="info-item-value">' + (shop.closed || '―') + '</div></div>'
-    + '<div class="info-item"><div class="info-item-label">エリア</div><div class="info-item-value">' + shop.pref + ' ' + shop.area + '</div></div>'
-    + '</div></div>';
+    + '<div class="info-item"><div class="info-item-label">エリア</div><div class="info-item-value">' + shop.pref + ' ' + (shop.area || '') + '</div></div>'
+    + '</div>'
+
+    // Review form
+    + '<div class="section-head">レビューを投稿</div>'
+    + '<div class="review-form">'
+    + '<div class="star-input" id="starInput">'
+    + '<input type="radio" name="score" id="s5" value="5"><label for="s5">★</label>'
+    + '<input type="radio" name="score" id="s4" value="4"><label for="s4">★</label>'
+    + '<input type="radio" name="score" id="s3" value="3"><label for="s3">★</label>'
+    + '<input type="radio" name="score" id="s2" value="2"><label for="s2">★</label>'
+    + '<input type="radio" name="score" id="s1" value="1"><label for="s1">★</label>'
+    + '</div>'
+    + '<div class="form-row">'
+    + '<div class="field"><label>お名前（任意）</label><input type="text" id="reviewAuthor" placeholder="匿名"></div>'
+    + '<div></div>'
+    + '</div>'
+    + '<div class="field" style="margin-bottom:12px"><label>コメント *</label><textarea id="reviewComment" placeholder="このお店の感想を書いてください…"></textarea></div>'
+    + '<button class="btn-submit" id="reviewSubmitBtn" onclick="submitReview(' + id + ')">レビューを投稿する</button>'
+    + '</div>'
+
+    // Existing reviews
+    + '<div class="section-head">クチコミ（' + reviews.length + '件）</div>'
+    + '<div class="reviews">' + reviewsHtml + '</div>'
+    + '</div>';
+
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
+async function submitReview(shopId) {
+  const scoreEl = document.querySelector('input[name="score"]:checked');
+  const comment = document.getElementById('reviewComment').value.trim();
+  const author = document.getElementById('reviewAuthor').value.trim() || '匿名';
+
+  if (!scoreEl) { showToast('⭐ 評価を選んでください'); return; }
+  if (!comment) { showToast('💬 コメントを入力してください'); return; }
+
+  const btn = document.getElementById('reviewSubmitBtn');
+  btn.disabled = true;
+  btn.textContent = '送信中…';
+
+  try {
+    const { error } = await sb.from('reviews').insert({
+      shop_id: shopId,
+      score: parseInt(scoreEl.value),
+      comment: comment,
+      author: author,
+    });
+    if (error) throw error;
+    showToast('✅ レビューを投稿しました！');
+    openModal(shopId); // Reload modal with new review
+  } catch(e) {
+    console.error(e);
+    showToast('⚠️ 投稿に失敗しました。テーブルを確認してください。');
+    btn.disabled = false;
+    btn.textContent = 'レビューを投稿する';
+  }
+}
+
 function closeModal(e) {
-  if (e && e.target !== document.getElementById('modalOverlay') && e.currentTarget !== document.querySelector('.modal-close')) return;
+  if (e && e.target !== document.getElementById('modalOverlay')) return;
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+// ===== ADD SHOP MODAL =====
+function openAddShopModal() {
+  document.getElementById('addShopOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAddShopModal(e) {
+  if (e && e.target !== document.getElementById('addShopOverlay')) return;
+  document.getElementById('addShopOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+async function submitAddShop() {
+  const name = document.getElementById('addName').value.trim();
+  const pref = document.getElementById('addPref').value;
+  const type = document.getElementById('addType').value;
+  const area = document.getElementById('addArea').value.trim();
+  const hours = document.getElementById('addHours').value.trim();
+  const address = document.getElementById('addAddress').value.trim();
+  const closed = document.getElementById('addClosed').value.trim();
+  const description = document.getElementById('addDesc').value.trim();
+
+  if (!name) { showToast('⚠️ 店名を入力してください'); return; }
+  if (!pref) { showToast('⚠️ 都道府県を選択してください'); return; }
+  if (!type) { showToast('⚠️ ラーメンの種類を選択してください'); return; }
+
+  const btn = document.getElementById('addShopBtn');
+  btn.disabled = true;
+  btn.textContent = '登録中…';
+
+  const emojis = ['🍜','🍣','🥢','🫕','🍲','🥣'];
+  const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+  try {
+    const { error } = await sb.from('shops').insert({
+      name, pref, type,
+      area: area || pref,
+      hours: hours || '要確認',
+      address: address || '',
+      closed: closed || '',
+      description: description || '',
+      emoji,
+      rating: 0.0,
+      reviews: 0,
+      open: false,
+      tags: [],
+      user_added: true,
+    });
+    if (error) throw error;
+    showToast('🏪 店舗を登録しました！');
+    closeAddShopModal();
+    // Reset form
+    ['addName','addArea','addHours','addAddress','addClosed','addDesc'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('addPref').value = '';
+    document.getElementById('addType').value = '';
+    loadShops();
+  } catch(e) {
+    console.error(e);
+    showToast('⚠️ 登録に失敗しました。');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'この店舗を登録する';
+  }
+}
+
+// ===== TOAST =====
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
 }
 
 document.getElementById('searchText').addEventListener('keyup', e => { if (e.key === 'Enter') applyFilters(); });
